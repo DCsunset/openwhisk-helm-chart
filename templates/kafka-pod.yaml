@@ -88,6 +88,17 @@ spec:
           value: "EXTERNAL://_{HOSTNAME_COMMAND}:{{ .Values.kafka.port }}"
         - name: "KAFKA_INTER_BROKER_LISTENER_NAME"
           value: "EXTERNAL"
+        # custom
+        - name: "KAFKA_MESSAGE_MAX_BYTES"
+          value: {{ .Values.kafka.messageMaxBytes | quote }}
+        - name: "KAFKA_NUM_REPLICA_FETCHERS"
+          value: {{ .Values.kafka.numReplicaFetchers | quote }}
+        - name: "KAFKA_REPLICA_FETCH_RESPONSE_MAX_BYTES"
+          value: {{ .Values.kafka.replicaFetchResponseMaxBytes | quote }}
+        - name: "KAFKA_NUM_NETWORK_THREADS"
+          value: {{ .Values.kafka.numNetworkThreads | quote }}
+        - name: "KAFKA_REPLICA_SOCKET_RECEIVE_BUFFER_BYTES"
+          value: {{ .Values.kafka.replicaSocketReceiveBufferBytes | quote }}
 
         # zookeeper info
         - name: "KAFKA_ZOOKEEPER_CONNECT"
