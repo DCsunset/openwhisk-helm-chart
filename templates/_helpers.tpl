@@ -19,6 +19,22 @@
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
+
+{{- define "openwhisk.sysctl" -}}
+- name: sysctl
+  image: busybox
+  command:
+  - sysctl
+  - -w
+  - net.core.somaxconn=1024
+  - net.ipv4.tcp_tw_reuse=1
+  - net.ipv4.tcp_fin_timeout=20
+  securityContext:
+    privileged: true
+    runAsUser: 0
+    runAsNonRoot: False
+{{- end -}}
+
 {{- define "openwhisk.fullname" -}}
 {{- $name := default .Chart.Name -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}

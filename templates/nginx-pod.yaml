@@ -64,6 +64,7 @@ spec:
         emptyDir: {}
 {{ include "openwhisk.docker.imagePullSecrets" . | indent 6 }}
       initContainers:
+{{ include "openwhisk.sysctl" . | indent 6 }}
       # Wait for a controller to be up (which implies kafka, zookeeper, couchdb are all up as well).
 {{ include "openwhisk.readiness.waitForController" . | indent 6 }}
       containers:
