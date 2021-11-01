@@ -123,6 +123,7 @@ whisk:
         retentionMs: ""
   containerPool:
     userMemory: "2048m"
+    akkaClient: true
   runtimes: "runtimes.json"
   testing:
     includeTests: true
@@ -140,6 +141,12 @@ whisk:
       gitTag: "2.2.0"
     openwhiskPackageKafka:
       gitTag: "2.1.0"
+  containerProxy:
+    timeouts:
+      pauseGrace: "10 minutes"
+  docker:
+    client:
+      parallelRuns: 0
 
 k8s:
   domain: cluster.local
@@ -193,12 +200,17 @@ kafka:
   imageName: "wurstmeister/kafka"
   imageTag: "2.12-2.3.1"
   imagePullPolicy: "IfNotPresent"
-  replicaCount: 1
+  replicaCount: 3
   restartPolicy: "Always"
   connect_string: null
   port: 9092
   persistence:
     size: 512Mi
+  messageMaxBytes: "4194352"
+  numReplicaFetchers: 8
+  replicaFetchResponseMaxBytes: "41943040"
+  numNetworkThreads: 8
+  replicaSocketReceiveBufferBytes: "1048576"
 
 # Database configuration
 db:
@@ -273,7 +285,7 @@ invoker:
   containerFactory:
     useRunc: false
     impl: "kubernetes"
-    enableConcurrency: false
+    enableConcurrency: true
     networkConfig:
       name: "bridge"
       dns:
@@ -285,8 +297,8 @@ invoker:
           search: ""
           options: ""
     kubernetes:
-      isolateUserActions: true
-      replicaCount: 1
+      isolateUserActions: false
+      replicaCount: 3
 
 # API Gateway configurations
 apigw:
