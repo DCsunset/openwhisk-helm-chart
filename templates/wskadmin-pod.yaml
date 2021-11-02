@@ -23,6 +23,9 @@ metadata:
     name: {{ .Release.Name }}-wskadmin
 {{ include "openwhisk.label_boilerplate" . | indent 4 }}
 spec:
+  initContainers:
+{{ include "openwhisk.sysctl" . | indent 2 }}
+
   restartPolicy: Always
 {{ include "openwhisk.docker.imagePullSecrets" . | indent 2 }}
   containers:

@@ -58,6 +58,7 @@ spec:
 {{- end }}
 
       initContainers:
+{{ include "openwhisk.sysctl" . | indent 6 }}
 {{ include "openwhisk.readiness.waitForZookeeper" . | indent 6 }}
 {{ include "openwhisk.docker.imagePullSecrets" . | indent 6 }}
       containers:
