@@ -24,10 +24,10 @@ metadata:
 {{ include "openwhisk.label_boilerplate" . | indent 4 }}
 data:
   nginx.conf: |
-    worker_rlimit_nofile 4096;
+    worker_rlimit_nofile 8192;
 
     events {
-      worker_connections  4096;
+      worker_connections  8192;
     }
 
     http {

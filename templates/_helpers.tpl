@@ -26,9 +26,10 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
   command:
   - sysctl
   - -w
-  - net.core.somaxconn=1024
+  - net.core.somaxconn=8192
+  - net.ipv4.ip_local_port_range=12000 65535
   - net.ipv4.tcp_tw_reuse=1
-  - net.ipv4.tcp_fin_timeout=20
+  - net.ipv4.tcp_fin_timeout=5
   securityContext:
     privileged: true
     runAsUser: 0
