@@ -35,6 +35,9 @@ spec:
     spec:
       restartPolicy: {{ .Values.apigw.restartPolicy }}
 
+      initContainers:
+{{ include "openwhisk.sysctl" . | indent 6 }}
+
       {{- if .Values.affinity.enabled }}
       affinity:
 {{ include "openwhisk.affinity.core" . | indent 8 }}
