@@ -146,7 +146,10 @@ whisk:
       pauseGrace: "10 minutes"
   docker:
     client:
-      parallelRuns: 0
+      parallelRuns: 64
+  runtime:
+    delete:
+      timeout: "10 minutes"
 
 k8s:
   domain: cluster.local

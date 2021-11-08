@@ -215,6 +215,8 @@ spec:
             value: {{ .Values.whisk.docker.client.parallelRuns | quote }}
           - name: "CONFIG_whisk_containerPool_akkaClient"
             value: {{ .Values.whisk.containerPool.akkaClient | quote }}
+          - name: "CONFIG_whisk_runtime_delete_timeout"
+            value: {{ .Values.whisk.runtime.delete.timeout | quote }}
         ports:
         - name: invoker
           containerPort: {{ .Values.invoker.port }}
